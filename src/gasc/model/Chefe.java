@@ -7,6 +7,14 @@ public final class Chefe extends Empregado {
 		super(nome, salarioBase, numeroDependentes);
 		this.gratificacao = gratificacao;
 	}
+	
+	public double getGratificacao() {
+		return gratificacao;
+	}
+
+	public void setGratificacao(double gratificacao) {
+		this.gratificacao = gratificacao;
+	}
 
 	@Override
 	public double salarioBruto() {

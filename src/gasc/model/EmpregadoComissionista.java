@@ -4,7 +4,7 @@ public final class EmpregadoComissionista extends Empregado {
 	private double valorItemVendido;
 	private short numeroItensVendidos;
 	
-	public EmpregadoComissionista(double valorItemVendido, short numeroItensVendidos, String nome, double salarioBase, short numeroDependentes) {
+	public EmpregadoComissionista(String nome, double salarioBase, short numeroDependentes, double valorItemVendido, short numeroItensVendidos) {
 		super(nome, salarioBase, numeroDependentes);
 		this.valorItemVendido = valorItemVendido;
 		this.numeroItensVendidos = numeroItensVendidos;

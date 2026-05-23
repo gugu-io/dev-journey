@@ -44,28 +44,30 @@ public abstract class Empregado implements Imposto {
 	}
 	
 	@Override
-	public double irpf(double salarioBruto) {
-		ImpostoRenda impostoRenda = ImpostoRenda.pesquisarImpostoRenda(salarioBruto);
+	public double irpf() {
+		double valorSalarioBruto = salarioBruto();
+		ImpostoRenda impostoRenda = ImpostoRenda.pesquisarImpostoRenda(valorSalarioBruto);
 
 		if(impostoRenda != null)
-				return salarioBruto / 10 * impostoRenda.getAliquota() - impostoRenda.getDeducao();
+			return valorSalarioBruto / 100 * impostoRenda.getAliquota() - impostoRenda.getDeducao();
+			
 		return 0;
 	}
 	
 	@Override
-	public double pss(double salarioBruto) {
-		return salarioBruto / 100 * TAXA_CONTRIBUICAO;
+	public double pss() {
+		return salarioBruto() / 100 * TAXA_CONTRIBUICAO;
 	}
 	
 	public double salarioLiquido() {
 		double valorSalarioBruto = salarioBruto(); 
-		double valorIrpf = irpf(salarioBruto());
-		double valorPss = pss(salarioBruto());
+		double valorIrpf = irpf();
+		double valorPss = pss();
 		double descontoPorDependente = DECONTO_POR_DEPENDETE * numeroDependentes;
 		
 		if(descontoPorDependente < valorIrpf)
 			return valorSalarioBruto - (valorIrpf - descontoPorDependente) - valorPss;
-		return valorSalarioBruto - valorPss;
+		return valorSalarioBruto - valorIrpf - valorPss;
 	}
 	
 	public abstract double salarioBruto();

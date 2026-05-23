@@ -1,6 +1,7 @@
 package gasc.model.enumeracao;
 
 public enum ImpostoRenda {
+	ALIQUOTA_0(0, 0, 0),
 	ALIQUOTA_7_5(2428.81, 7.5, 182.16),
 	ALIQUOTA_15(2826.66, 15, 394.16),
 	ALIQUOTA_22_5(3751.06, 22.5, 675.49),
@@ -32,7 +33,7 @@ public enum ImpostoRenda {
 		for(int indice = 0; indice < values().length - 1; indice ++)
 			if(Double.compare(baseCalculo, values()[indice].getBaseCalculo())  >= 0 && Double.compare(baseCalculo, values()[indice+1].getBaseCalculo()) < 0)
 				return values()[indice];
-		return null;
+		return ALIQUOTA_27_5;
 	}
 	
 	@Override

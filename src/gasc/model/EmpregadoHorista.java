@@ -16,6 +16,10 @@ public final class EmpregadoHorista extends Empregado {
 	public void setHorasTrabalhadas(int horasTrabalhadas) {
 		this.horasTrabalhadas = horasTrabalhadas;
 	}
+	
+	public double getValorPorHora() {
+		return VALOR_POR_HORA;
+	}
 
 	@Override
 	public double salarioBruto() {
