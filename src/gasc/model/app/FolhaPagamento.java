@@ -37,6 +37,7 @@ public class FolhaPagamento {
 			switch (opc) {
 				case 0 -> cadastrarEmpregado();
 				case 1 -> consultarEmpregado();
+				case 2 -> alterarEmpregado();
 				case 3 -> relatorio();
 				default -> System.exit(0);
 			}
@@ -91,7 +92,46 @@ public class FolhaPagamento {
 	}
 	
 	public void alterarEmpregado() {
+		String nome = readString("Insira o nome", TITULO_ALTERAR_FUNCIONARIO);
 		
+		if(nome != null && nome.length() != 0) {
+			Optional<Empregado> empregadoOpt = empregadoList.pesquisar(nome);
+			
+			if(empregadoOpt.isPresent()) {
+				Empregado empregado = empregadoOpt.get();
+				showInfo(empregado.toString(), TITULO_ALTERAR_FUNCIONARIO);
+				int opc = showConfirmDialog("Deseja realmenta alterar esse funcionário?", TITULO_ALTERAR_FUNCIONARIO);
+				
+				if(opc == JOptionPane.YES_OPTION) {
+					String nomeNovo = readString("Insira o novo nome", TITULO_ALTERAR_FUNCIONARIO);
+					double salarioBase = readDouble("Insira o salário base", TITULO_ALTERAR_FUNCIONARIO);
+					short numeroDependentes = readShort("Insira o número de dependêntes", TITULO_ALTERAR_FUNCIONARIO);
+					
+					if(empregado instanceof Chefe chefe) {
+						double gratificacao = readDouble("Insira a gratificação", TITULO_ALTERAR_FUNCIONARIO);
+						chefe.setGratificacao(gratificacao);
+					}
+					
+					else if(empregado instanceof EmpregadoComissionista empregadoComissionista) {
+						double valorPorItemVendido = readDouble("Insira o valor ganho por item vendido", TITULO_ALTERAR_FUNCIONARIO);
+						short totalItensVendidos = readShort("Insira o total de ítens vendidos", TITULO_ALTERAR_FUNCIONARIO);
+						
+						empregadoComissionista.setValorItemVendido(valorPorItemVendido);
+						empregadoComissionista.setNumeroItensVendidos(totalItensVendidos);
+					}
+					
+					else if(empregado instanceof EmpregadoHorista empregadoHorista) {
+						int totalHorasTrabalhadas = readInt("Insira o total de horas trabalhadas", TITULO_ALTERAR_FUNCIONARIO);
+						empregadoHorista.setHorasTrabalhadas(totalHorasTrabalhadas);
+					}
+					
+					empregado.setNome(nomeNovo);
+					empregado.setSalarioBase(salarioBase);
+					empregado.setNumeroDependentes(numeroDependentes);
+				}
+			} else
+				showInfo("Funcionário não cadastrado", TITULO_ALTERAR_FUNCIONARIO);
+		}
 	}
 	
 	public void relatorio() {
